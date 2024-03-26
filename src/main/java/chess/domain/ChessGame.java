@@ -25,6 +25,10 @@ public class ChessGame {
         return board.findCheckState(currentTeam);
     }
 
+    public double findScore(Team team) {
+        return board.calculateScore(team);
+    }
+
     public Board getBoard() {
         return board;
     }

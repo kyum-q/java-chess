@@ -5,4 +5,8 @@ public enum CheckState {
     CHECK_MATE,
     SAFE,
     ;
+
+    public boolean isCheckMate() {
+        return this == CHECK_MATE;
+    }
 }

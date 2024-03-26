@@ -1,12 +1,14 @@
 package chess.view;
 
 import chess.domain.CheckState;
+import chess.domain.piece.character.Team;
 import chess.domain.position.File;
 import chess.domain.position.Rank;
 import chess.dto.BoardDto;
 
-public class OutputView {
+import java.util.Map;
 
+public class OutputView {
     public static void printChessBoard(BoardDto boardDto) {
         for (Rank rank : Rank.values()) {
             printChessRow(boardDto, rank);
@@ -29,5 +31,19 @@ public class OutputView {
         };
 
         System.out.print(checkMessage);
+    }
+
+    public static void printScore(Map<Team, Double> mapTeamAndScore) {
+        System.out.println("결과 출력");
+        mapTeamAndScore
+                .forEach((key, value) -> System.out.println(teamToString(key) + " : " + value));
+        System.out.println();
+    }
+
+    private static String teamToString(Team team) {
+        return switch (team) {
+            case BLACK -> "검은색 팀";
+            case WHITE -> "흰색 팀";
+        };
     }
 }
