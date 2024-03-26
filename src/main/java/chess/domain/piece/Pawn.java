@@ -37,7 +37,7 @@ public class Pawn extends Piece {
 
     @Override
     public boolean isAttackable(Positions positions) {
-        return positions.calculateRowDifference() == NORMAL_MOVEMENT * team.attackDirection()
+        return isPossibleOneStepMovement(positions.calculateRowDifference())
                 && Math.abs(positions.calculateColumnDifference()) == ATTACK_COLUMN_MOVEMENT;
     }
 
@@ -46,10 +46,16 @@ public class Pawn extends Piece {
         if (positions.calculateColumnDifference() != 0) {
             return false;
         }
-
         int rowDifference = positions.calculateRowDifference();
-        return rowDifference == NORMAL_MOVEMENT * team.attackDirection()
-                || (!isMoved && rowDifference == START_MOVEMENT * team.attackDirection());
+        return isPossibleOneStepMovement(rowDifference) || isPossibleTowStepMovement(rowDifference);
+    }
+
+    private boolean isPossibleOneStepMovement(int rowDifference) {
+        return rowDifference == NORMAL_MOVEMENT * team.attackDirection();
+    }
+
+    private boolean isPossibleTowStepMovement(int rowDifference) {
+        return !isMoved && rowDifference == START_MOVEMENT * team.attackDirection();
     }
 
     @Override
