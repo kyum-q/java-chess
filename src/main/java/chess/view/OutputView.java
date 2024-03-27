@@ -1,6 +1,7 @@
 package chess.view;
 
 import chess.domain.CheckState;
+import chess.domain.Outcome;
 import chess.domain.piece.character.Team;
 import chess.domain.position.File;
 import chess.domain.position.Rank;
@@ -33,11 +34,20 @@ public class OutputView {
         System.out.print(checkMessage);
     }
 
-    public static void printScore(Map<Team, Double> mapTeamAndScore) {
+    public static void printScore(Outcome outcome, Map<Team, Double> mapTeamAndScore) {
         System.out.println("결과 출력");
+        System.out.printf("결과 - %s%n", outcomeToString(outcome));
         mapTeamAndScore
                 .forEach((key, value) -> System.out.println(teamToString(key) + " : " + value));
         System.out.println();
+    }
+
+    private static String outcomeToString(Outcome outcome) {
+        return switch (outcome) {
+            case BLACK_WIN -> "검은색 팀 승";
+            case WHITE_WIN -> "흰색 팀 승";
+            case DRAW -> "무승부";
+        };
     }
 
     private static String teamToString(Team team) {
