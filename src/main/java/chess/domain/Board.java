@@ -4,6 +4,8 @@ import chess.domain.piece.King;
 import chess.domain.piece.Piece;
 import chess.domain.piece.character.Kind;
 import chess.domain.piece.character.Team;
+import chess.domain.position.Position;
+import chess.domain.position.Positions;
 
 import java.util.Collections;
 import java.util.List;

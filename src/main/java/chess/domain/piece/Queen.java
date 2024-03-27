@@ -1,8 +1,8 @@
 package chess.domain.piece;
 
 import chess.domain.Calculator;
-import chess.domain.Position;
-import chess.domain.Positions;
+import chess.domain.position.Position;
+import chess.domain.position.Positions;
 import chess.domain.piece.character.Kind;
 import chess.domain.piece.character.Team;
 

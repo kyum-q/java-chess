@@ -2,6 +2,7 @@ package chess.domain;
 
 import chess.domain.piece.*;
 import chess.domain.piece.character.Team;
+import chess.domain.position.Position;
 
 import java.util.HashMap;
 import java.util.Map;

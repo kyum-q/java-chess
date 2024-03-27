@@ -1,6 +1,6 @@
 package chess.view;
 
-import chess.domain.Positions;
+import chess.domain.position.Positions;
 
 import java.util.Scanner;
 import java.util.StringTokenizer;
