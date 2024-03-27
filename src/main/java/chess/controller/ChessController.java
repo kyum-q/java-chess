@@ -3,7 +3,7 @@ package chess.controller;
 import chess.domain.Board;
 import chess.domain.BoardFactory;
 import chess.domain.ChessGame;
-import chess.domain.Positions;
+import chess.domain.position.Positions;
 import chess.dto.BoardDto;
 import chess.view.InputView;
 import chess.view.OutputView;
