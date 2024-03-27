@@ -21,8 +21,6 @@ public abstract class Piece {
 
     public abstract Piece move();
 
-    public abstract boolean checkKind(Kind kind);
-
     public abstract boolean isAttackable(Positions positions);
 
     public abstract boolean isMovable(Positions positions);
@@ -30,6 +28,8 @@ public abstract class Piece {
     public abstract List<Position> findBetweenPositionsWhenAttack(Positions positions);
 
     protected abstract List<Position> findBetweenPositions(Position position, int rowDifference, int columnDifference);
+
+    protected abstract Kind findKind();
 
     public List<Position> findBetweenPositions(Positions positions) {
         validateMovable(positions);
@@ -56,6 +56,18 @@ public abstract class Piece {
 
     public boolean isSameTeamWith(Team team) {
         return this.team == team;
+    }
+
+    public boolean checkKind(Kind kind) {
+        return findKind() == kind;
+    }
+
+    public double findMinScore() {
+       return findKind().minScore();
+    }
+
+    public double findMaxScore() {
+        return findKind().maxScore();
     }
 
     @Override

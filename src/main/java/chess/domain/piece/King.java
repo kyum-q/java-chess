@@ -28,11 +28,6 @@ public class King extends Piece {
     }
 
     @Override
-    public boolean checkKind(Kind kind) {
-        return Kind.KING == kind;
-    }
-
-    @Override
     public boolean isAttackable(Positions positions) {
         return isMovable(positions);
     }
@@ -51,5 +46,10 @@ public class King extends Piece {
     @Override
     protected List<Position> findBetweenPositions(Position position, int rowDifference, int columnDifference) {
         return new ArrayList<>();
+    }
+
+    @Override
+    protected Kind findKind() {
+        return Kind.KING;
     }
 }

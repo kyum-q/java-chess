@@ -27,11 +27,6 @@ public class Rook extends Piece {
     }
 
     @Override
-    public boolean checkKind(Kind kind) {
-        return Kind.ROOK == kind;
-    }
-
-    @Override
     public boolean isAttackable(Positions positions) {
         return isMovable(positions);
     }
@@ -57,6 +52,11 @@ public class Rook extends Piece {
             positions.add(position.move(rowSign * i, columnSign * i));
         }
         return positions;
+    }
+
+    @Override
+    protected Kind findKind() {
+        return Kind.ROOK;
     }
 
 }

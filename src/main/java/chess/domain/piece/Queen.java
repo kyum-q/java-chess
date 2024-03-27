@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Queen extends Piece {
-
     public Queen(Team team) {
         this(team, false);
     }
@@ -25,11 +24,6 @@ public class Queen extends Piece {
             return this;
         }
         return new Queen(team, true);
-    }
-
-    @Override
-    public boolean checkKind(Kind kind) {
-        return Kind.QUEEN == kind;
     }
 
     @Override
@@ -61,5 +55,10 @@ public class Queen extends Piece {
             positions.add(position.move(rowSign * i, columnSign * i));
         }
         return positions;
+    }
+
+    @Override
+    protected Kind findKind() {
+        return Kind.QUEEN;
     }
 }

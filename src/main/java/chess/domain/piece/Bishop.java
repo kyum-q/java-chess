@@ -26,11 +26,6 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public boolean checkKind(Kind kind) {
-        return Kind.BISHOP == kind;
-    }
-
-    @Override
     public boolean isAttackable(Positions positions) {
         return isMovable(positions);
     }
@@ -56,5 +51,10 @@ public class Bishop extends Piece {
             positions.add(position.move(rowSign * i, columnSign * i));
         }
         return positions;
+    }
+
+    @Override
+    protected Kind findKind() {
+        return Kind.BISHOP;
     }
 }
