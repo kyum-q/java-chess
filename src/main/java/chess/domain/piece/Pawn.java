@@ -32,34 +32,34 @@ public class Pawn extends Piece {
 
     @Override
     public boolean isAttackable(Positions positions) {
-        return isPossibleOneStepMovement(positions.calculateRowDifference())
-                && Math.abs(positions.calculateColumnDifference()) == ATTACK_COLUMN_MOVEMENT;
+        return isPossibleOneStepMovement(positions.calculateRankDifference())
+                && Math.abs(positions.calculateFileDifference()) == ATTACK_COLUMN_MOVEMENT;
     }
 
     @Override
     public boolean isMovable(Positions positions) {
-        if (positions.calculateColumnDifference() != 0) {
+        if (positions.calculateFileDifference() != 0) {
             return false;
         }
-        int rowDifference = positions.calculateRowDifference();
-        return isPossibleOneStepMovement(rowDifference) || isPossibleTowStepMovement(rowDifference);
+        int rankDifference = positions.calculateRankDifference();
+        return isPossibleOneStepMovement(rankDifference) || isPossibleTowStepMovement(rankDifference);
     }
 
-    private boolean isPossibleOneStepMovement(int rowDifference) {
-        return rowDifference == NORMAL_MOVEMENT * team.attackDirection();
+    private boolean isPossibleOneStepMovement(int rankDifference) {
+        return rankDifference == NORMAL_MOVEMENT * team.attackDirection();
     }
 
-    private boolean isPossibleTowStepMovement(int rowDifference) {
-        return !isMoved && rowDifference == START_MOVEMENT * team.attackDirection();
+    private boolean isPossibleTowStepMovement(int rankDifference) {
+        return !isMoved && rankDifference == START_MOVEMENT * team.attackDirection();
     }
 
     @Override
     public List<Position> findBetweenPositionsWhenAttack(Positions positions) {
-        int rowDifference = positions.calculateRowDifference();
-        int columnDifference = positions.calculateColumnDifference();
+        int rankDifference = positions.calculateRankDifference();
+        int fileDifference = positions.calculateFileDifference();
 
         validateAttackable(positions);
-        return findBetweenPositions(positions.source(), rowDifference, columnDifference);
+        return findBetweenPositions(positions.source(), rankDifference, fileDifference);
     }
 
     private void validateAttackable(Positions positions) {
@@ -70,10 +70,10 @@ public class Pawn extends Piece {
     }
 
     @Override
-    protected List<Position> findBetweenPositions(Position position, int rowDifference, int columnDifference) {
+    protected List<Position> findBetweenPositions(Position position, int fileDifference, int rankDifference) {
         List<Position> positions = new ArrayList<>();
-        if (Math.abs(rowDifference) == START_MOVEMENT) {
-            positions.add(position.move(Calculator.calculateMinMovement(rowDifference), 0));
+        if (Math.abs(rankDifference) == START_MOVEMENT) {
+            positions.add(position.move(0, Calculator.calculateMinMovement(rankDifference)));
             return positions;
         }
         return new ArrayList<>();

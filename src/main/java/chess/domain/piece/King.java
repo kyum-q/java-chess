@@ -34,8 +34,8 @@ public class King extends Piece {
 
     @Override
     public boolean isMovable(Positions positions) {
-        return Math.abs(positions.calculateRowDifference()) <= MAX_MOVE_DIFFERENCE
-                && Math.abs(positions.calculateColumnDifference()) <= MAX_MOVE_DIFFERENCE;
+        return Math.abs(positions.calculateRankDifference()) <= MAX_MOVE_DIFFERENCE
+                && Math.abs(positions.calculateFileDifference()) <= MAX_MOVE_DIFFERENCE;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class King extends Piece {
     }
 
     @Override
-    protected List<Position> findBetweenPositions(Position position, int rowDifference, int columnDifference) {
+    protected List<Position> findBetweenPositions(Position position, int fileDifference,  int rankDifference) {
         return new ArrayList<>();
     }
 
