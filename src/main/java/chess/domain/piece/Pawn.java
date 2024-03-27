@@ -31,11 +31,6 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public boolean checkKind(Kind kind) {
-        return Kind.PAWN == kind;
-    }
-
-    @Override
     public boolean isAttackable(Positions positions) {
         return isPossibleOneStepMovement(positions.calculateRowDifference())
                 && Math.abs(positions.calculateColumnDifference()) == ATTACK_COLUMN_MOVEMENT;
@@ -82,5 +77,10 @@ public class Pawn extends Piece {
             return positions;
         }
         return new ArrayList<>();
+    }
+
+    @Override
+    protected Kind findKind() {
+        return Kind.PAWN;
     }
 }
