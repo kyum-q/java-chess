@@ -8,6 +8,8 @@ import chess.domain.position.Positions;
 import chess.domain.position.Rank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.Map;
 
@@ -140,5 +142,29 @@ public class BoardTest {
         ));
 
         assertThat(board.findCheckState(Team.WHITE)).isEqualTo(CheckState.CHECK);
+    }
+
+    @DisplayName("팀 별로 점수를 계산할 수 있다.")
+    @ParameterizedTest
+    @CsvSource(value = {"WHITE, 19.5", "BLACK, 20"})
+    void calculateScore(Team team, double score) {
+        Map<Position, Piece> expected = Map.ofEntries(
+                Map.entry(Position.of(File.B, Rank.EIGHT), new King(Team.BLACK)),
+                Map.entry(Position.of(File.C, Rank.EIGHT), new Rook(Team.BLACK)),
+                Map.entry(Position.of(File.A, Rank.SEVEN), new Pawn(Team.BLACK)),
+                Map.entry(Position.of(File.C, Rank.SEVEN), new Pawn(Team.BLACK)),
+                Map.entry(Position.of(File.D, Rank.SEVEN), new Bishop(Team.BLACK)),
+                Map.entry(Position.of(File.B, Rank.SIX), new Pawn(Team.BLACK)),
+                Map.entry(Position.of(File.E, Rank.SIX), new Queen(Team.BLACK)),
+                Map.entry(Position.of(File.F, Rank.FOUR), new Knight(Team.WHITE)),
+                Map.entry(Position.of(File.G, Rank.FOUR), new Queen(Team.WHITE)),
+                Map.entry(Position.of(File.F, Rank.THREE), new Pawn(Team.WHITE)),
+                Map.entry(Position.of(File.H, Rank.THREE), new Pawn(Team.WHITE)),
+                Map.entry(Position.of(File.F, Rank.TWO), new Pawn(Team.WHITE)),
+                Map.entry(Position.of(File.G, Rank.TWO), new Pawn(Team.WHITE)),
+                Map.entry(Position.of(File.E, Rank.ONE), new Rook(Team.WHITE)),
+                Map.entry(Position.of(File.F, Rank.ONE), new King(Team.WHITE)));
+
+        assertThat(new Board(expected).calculateScore(team)).isEqualTo(score);
     }
 }

@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 public class Position {
-
     private static final List<Position> positions;
 
     static {
@@ -52,6 +51,10 @@ public class Position {
 
     public int calculateRankDifference(Position targetPosition) {
         return rank.calculateRankDifference(targetPosition.rank);
+    }
+
+    public boolean checkFile(File file) {
+        return this.file == file;
     }
 
     @Override
