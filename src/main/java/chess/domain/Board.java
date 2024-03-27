@@ -14,7 +14,6 @@ import java.util.Map.Entry;
 import java.util.stream.Stream;
 
 public record Board(Map<Position, Piece> pieces) {
-
     public void validateSameTeamByPosition(Position position, Team team) {
         if (pieces.get(position).isOppositeTeamWith(team)) {
             throw new IllegalArgumentException("%s 팀이 움직일 차례입니다".formatted(team.name()));

@@ -17,11 +17,11 @@ public class Positions {
     }
 
     public int calculateRowDifference() {
-        return sourcePosition.calculateRowDifference(targetPosition);
+        return sourcePosition.calculateRankDifference(targetPosition);
     }
 
     public int calculateColumnDifference() {
-        return sourcePosition.calculateColumnDifference(targetPosition);
+        return sourcePosition.calculateFileDifference(targetPosition);
     }
 
     public Position source() {

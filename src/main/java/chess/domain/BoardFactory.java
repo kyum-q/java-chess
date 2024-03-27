@@ -2,7 +2,9 @@ package chess.domain;
 
 import chess.domain.piece.*;
 import chess.domain.piece.character.Team;
+import chess.domain.position.File;
 import chess.domain.position.Position;
+import chess.domain.position.Rank;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,31 +15,31 @@ public class BoardFactory {
 
     public static Map<Position, Piece> generateStartBoard() {
         Map<Position, Piece> pieces = new HashMap<>();
-        pieces.putAll(createPawnRow(2, Team.WHITE));
-        pieces.putAll(createPawnRow(7, Team.BLACK));
-        pieces.putAll(createEdgeRow(1, Team.WHITE));
-        pieces.putAll(createEdgeRow(8, Team.BLACK));
+        pieces.putAll(createPawnRow(Rank.TWO, Team.WHITE));
+        pieces.putAll(createPawnRow(Rank.SEVEN, Team.BLACK));
+        pieces.putAll(createEdgeRow(Rank.ONE, Team.WHITE));
+        pieces.putAll(createEdgeRow(Rank.EIGHT, Team.BLACK));
         return pieces;
     }
 
-    private static Map<Position, Piece> createPawnRow(int row, Team team) {
+    private static Map<Position, Piece> createPawnRow(Rank rank, Team team) {
         Map<Position, Piece> pawnRow = new HashMap<>();
-        for (int column = 1; column <= 8; column++) {
-            pawnRow.put(Position.of(row, column), new Pawn(team));
+        for (File file : File.values()) {
+            pawnRow.put(Position.of(file, rank), new Pawn(team));
         }
         return pawnRow;
     }
 
-    private static Map<Position, Piece> createEdgeRow(int row, Team team) {
+    private static Map<Position, Piece> createEdgeRow(Rank rank, Team team) {
         return new HashMap<>(Map.of(
-                Position.of(row, 1), new Rook(team),
-                Position.of(row, 2), new Knight(team),
-                Position.of(row, 3), new Bishop(team),
-                Position.of(row, 4), new Queen(team),
-                Position.of(row, 5), new King(team),
-                Position.of(row, 6), new Bishop(team),
-                Position.of(row, 7), new Knight(team),
-                Position.of(row, 8), new Rook(team)
+                Position.of(File.A, rank), new Rook(team),
+                Position.of(File.B, rank), new Knight(team),
+                Position.of(File.C, rank), new Bishop(team),
+                Position.of(File.D, rank), new Queen(team),
+                Position.of(File.E, rank), new King(team),
+                Position.of(File.F, rank), new Bishop(team),
+                Position.of(File.G, rank), new Knight(team),
+                Position.of(File.H, rank), new Rook(team)
         ));
     }
 }

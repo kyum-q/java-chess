@@ -1,8 +1,10 @@
 package chess.domain.piece;
 
+import chess.domain.position.File;
 import chess.domain.position.Position;
 import chess.domain.position.Positions;
 import chess.domain.piece.character.Team;
+import chess.domain.position.Rank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -15,8 +17,8 @@ class BishopTest {
     void bishopMoveOverDiagonalLine() {
         assertThatThrownBy(() -> new Bishop(Team.WHITE)
                 .findBetweenPositions(new Positions(
-                        Position.of(4, 4),
-                        Position.of(1, 4))))
+                        Position.of(File.D, Rank.FOUR),
+                        Position.of(File.D, Rank.ONE))))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("해당 위치로 움직일 수 없습니다.");
     }
@@ -26,9 +28,9 @@ class BishopTest {
     void betweenPosition() {
         assertThat(new Bishop(Team.WHITE)
                 .findBetweenPositions(new Positions(
-                        Position.of(4, 4),
-                        Position.of(7, 7))))
-                .containsExactly(Position.of(5, 5), Position.of(6, 6));
+                        Position.of(File.D, Rank.FOUR),
+                        Position.of(File.G, Rank.SEVEN))))
+                .containsExactly(Position.of(File.E, Rank.FIVE), Position.of(File.F, Rank.SIX));
     }
 
     @DisplayName("두 위치 사이의 비숍이 갈 수 있는 위치들을 반환한다.")
@@ -36,8 +38,8 @@ class BishopTest {
     void betweenPositionMinus() {
         assertThat(new Bishop(Team.WHITE)
                 .findBetweenPositions(new Positions(
-                        Position.of(4, 4),
-                        Position.of(1, 1))))
-                .containsExactly(Position.of(3, 3), Position.of(2, 2));
+                        Position.of(File.D, Rank.FOUR),
+                        Position.of(File.A, Rank.ONE))))
+                .containsExactly(Position.of(File.C, Rank.THREE), Position.of(File.B, Rank.TWO));
     }
 }

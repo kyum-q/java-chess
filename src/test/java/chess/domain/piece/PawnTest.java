@@ -1,8 +1,10 @@
 package chess.domain.piece;
 
+import chess.domain.position.File;
 import chess.domain.position.Position;
 import chess.domain.position.Positions;
 import chess.domain.piece.character.Team;
+import chess.domain.position.Rank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -16,8 +18,8 @@ class PawnTest {
     void startWhitePawnMoveOverTwo() {
         assertThatThrownBy(() -> new Pawn(Team.WHITE)
                 .findBetweenPositions(new Positions(
-                        Position.of(2, 1),
-                        Position.of(5, 1))))
+                        Position.of(File.A, Rank.TWO),
+                        Position.of(File.A, Rank.FIVE))))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("해당 위치로 움직일 수 없습니다.");
     }
@@ -27,8 +29,8 @@ class PawnTest {
     void startBlackPawnMoveOverTwo() {
         assertThatThrownBy(() -> new Pawn(Team.BLACK)
                 .findBetweenPositions(new Positions(
-                        Position.of(7, 1),
-                        Position.of(4, 1))))
+                        Position.of(File.A, Rank.SEVEN),
+                        Position.of(File.A, Rank.FOUR))))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("해당 위치로 움직일 수 없습니다.");
     }
@@ -38,8 +40,8 @@ class PawnTest {
     void whitePawnMoveOverTwo() {
         assertThatThrownBy(() -> new Pawn(Team.WHITE).move()
                 .findBetweenPositions(new Positions(
-                        Position.of(3, 1),
-                        Position.of(5, 1))))
+                        Position.of(File.A, Rank.THREE),
+                        Position.of(File.A, Rank.FIVE))))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("해당 위치로 움직일 수 없습니다.");
     }
@@ -49,8 +51,8 @@ class PawnTest {
     void blackPawnMoveOverTwo() {
         assertThatThrownBy(() -> new Pawn(Team.BLACK).move()
                 .findBetweenPositions(new Positions(
-                        Position.of(6, 1),
-                        Position.of(4, 1))))
+                        Position.of(File.A, Rank.SIX),
+                        Position.of(File.A, Rank.FOUR))))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("해당 위치로 움직일 수 없습니다.");
     }
@@ -61,8 +63,8 @@ class PawnTest {
     void whitePawnMoveColumn(Team team) {
         assertThatThrownBy(() -> new Pawn(team)
                 .findBetweenPositions(new Positions(
-                        Position.of(7, 1),
-                        Position.of(7, 2))))
+                        Position.of(File.A, Rank.SEVEN),
+                        Position.of(File.B, Rank.SEVEN))))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("해당 위치로 움직일 수 없습니다.");
     }
@@ -72,9 +74,9 @@ class PawnTest {
     void betweenPosition() {
         assertThat(new Pawn(Team.WHITE)
                 .findBetweenPositions(new Positions(
-                        Position.of(2, 3),
-                        Position.of(4, 3))))
-                .containsExactly(Position.of(3, 3));
+                        Position.of(File.C, Rank.TWO),
+                        Position.of(File.C, Rank.FOUR))))
+                .containsExactly(Position.of(File.C, Rank.THREE));
     }
 
     @DisplayName("두 위치 사이의 폰이 갈 수 있는 위치들을 반환한다.")
@@ -82,8 +84,8 @@ class PawnTest {
     void betweenPositionHasMoved() {
         assertThat(new Pawn(Team.WHITE).move()
                 .findBetweenPositions(new Positions(
-                        Position.of(3, 3),
-                        Position.of(4, 3))))
+                        Position.of(File.C, Rank.THREE),
+                        Position.of(File.C, Rank.FOUR))))
                 .isEmpty();
     }
 
@@ -92,8 +94,8 @@ class PawnTest {
     void betweenPositionOneWhenHasNotMoved() {
         assertThat(new Pawn(Team.WHITE)
                 .findBetweenPositions(new Positions(
-                        Position.of(2, 3),
-                        Position.of(3, 3))))
+                        Position.of(File.C, Rank.TWO),
+                        Position.of(File.C, Rank.THREE))))
                 .isEmpty();
     }
 
@@ -102,8 +104,8 @@ class PawnTest {
     void movableDiagonalWhenAttack() {
         assertThatCode(() -> new Pawn(Team.WHITE)
                 .findBetweenPositionsWhenAttack(new Positions(
-                        Position.of(2, 2),
-                        Position.of(3, 3))))
+                        Position.of(File.B, Rank.TWO),
+                        Position.of(File.C, Rank.THREE))))
                 .doesNotThrowAnyException();
     }
 
@@ -112,8 +114,8 @@ class PawnTest {
     void noneBetweenPositionWhenAttack() {
         assertThat(new Pawn(Team.WHITE)
                 .findBetweenPositionsWhenAttack(new Positions(
-                        Position.of(2, 2),
-                        Position.of(3, 3))))
+                        Position.of(File.B, Rank.TWO),
+                        Position.of(File.C, Rank.THREE))))
                 .isEmpty();
     }
 
@@ -122,8 +124,8 @@ class PawnTest {
     void cannotMoveStraightWhenAttack() {
         assertThatThrownBy(() -> new Pawn(Team.WHITE)
                 .findBetweenPositionsWhenAttack(new Positions(
-                        Position.of(2, 2),
-                        Position.of(3, 2))))
+                        Position.of(File.B, Rank.TWO),
+                        Position.of(File.B, Rank.THREE))))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("해당 위치로 움직일 수 없습니다.");
     }

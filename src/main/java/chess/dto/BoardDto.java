@@ -1,8 +1,10 @@
 package chess.dto;
 
 import chess.domain.Board;
+import chess.domain.position.File;
 import chess.domain.position.Position;
 import chess.domain.piece.Piece;
+import chess.domain.position.Rank;
 import chess.view.Character;
 
 import java.util.HashMap;
@@ -23,8 +25,8 @@ public class BoardDto {
         }
     }
 
-    public String identifyPositionCharacter(int row, int column) {
-        Position position = Position.of(row, column);
+    public String identifyPositionCharacter(File file, Rank rank) {
+        Position position = Position.of(file, rank);
         if (pieces.containsKey(position)) {
             return pieces.get(position).getMessage();
         }
