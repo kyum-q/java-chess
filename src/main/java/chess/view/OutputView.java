@@ -1,20 +1,22 @@
 package chess.view;
 
 import chess.domain.CheckState;
+import chess.domain.position.File;
+import chess.domain.position.Rank;
 import chess.dto.BoardDto;
 
 public class OutputView {
 
     public static void printChessBoard(BoardDto boardDto) {
-        for (int row = 8; row >= 1; row--) {
-            printChessRow(boardDto, row);
+        for (Rank rank : Rank.values()) {
+            printChessRow(boardDto, rank);
         }
         System.out.println();
     }
 
-    private static void printChessRow(BoardDto boardDto, int row) {
-        for (int column = 1; column <= 8; column++) {
-            System.out.print(boardDto.identifyPositionCharacter(row, column));
+    private static void printChessRow(BoardDto boardDto, Rank rank) {
+        for (File file : File.values()) {
+            System.out.print(boardDto.identifyPositionCharacter(file, rank));
         }
         System.out.println();
     }
