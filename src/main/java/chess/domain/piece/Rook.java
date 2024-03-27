@@ -33,7 +33,7 @@ public class Rook extends Piece {
 
     @Override
     public boolean isMovable(Positions positions) {
-        return positions.calculateRowDifference() == 0 || positions.calculateColumnDifference() == 0;
+        return positions.calculateRankDifference() == 0 || positions.calculateFileDifference() == 0;
     }
 
     @Override
@@ -42,14 +42,14 @@ public class Rook extends Piece {
     }
 
     @Override
-    protected List<Position> findBetweenPositions(Position position, int rowDifference, int columnDifference) {
-        int absoluteDifference = Math.max(Math.abs(rowDifference), Math.abs(columnDifference));
-        int rowSign = Calculator.calculateMinMovement(rowDifference);
-        int columnSign = Calculator.calculateMinMovement(columnDifference);
+    protected List<Position> findBetweenPositions(Position position, int fileDifference, int rankDifference) {
+        int absoluteDifference = Math.max(Math.abs(rankDifference), Math.abs(fileDifference));
+        int rankSign = Calculator.calculateMinMovement(rankDifference);
+        int fileSign = Calculator.calculateMinMovement(fileDifference);
 
         List<Position> positions = new ArrayList<>();
         for (int i = MIN_MOVEMENT; i < absoluteDifference; i++) {
-            positions.add(position.move(rowSign * i, columnSign * i));
+            positions.add(position.move(fileSign * i, rankSign * i));
         }
         return positions;
     }

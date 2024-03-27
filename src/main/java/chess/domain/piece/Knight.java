@@ -36,8 +36,8 @@ public class Knight extends Piece {
     @Override
     public boolean isMovable(Positions positions) {
         List<Integer> differenceList = List.of(
-                Math.abs(positions.calculateRowDifference()),
-                Math.abs(positions.calculateColumnDifference()));
+                Math.abs(positions.calculateRankDifference()),
+                Math.abs(positions.calculateFileDifference()));
         return differenceList.containsAll(MOVE_DIFFERENCES);
     }
 
@@ -47,7 +47,7 @@ public class Knight extends Piece {
     }
 
     @Override
-    protected List<Position> findBetweenPositions(Position position, int rowDifference, int columnDifference) {
+    protected List<Position> findBetweenPositions(Position position, int fileDifference,  int rankDifference) {
         return new ArrayList<>();
     }
 

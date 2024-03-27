@@ -35,7 +35,7 @@ public class Position {
                 .orElseThrow(() -> new IllegalStateException("캐시에 해당 값이 존재하지 않습니다."));
     }
 
-    public Position move(int rankMoveAmount, int fileMoveAmount) {
+    public Position move(int fileMoveAmount, int rankMoveAmount) {
         return Position.of(file.move(fileMoveAmount), rank.move(rankMoveAmount));
     }
 

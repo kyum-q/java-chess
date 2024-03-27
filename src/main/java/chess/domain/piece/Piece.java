@@ -27,16 +27,16 @@ public abstract class Piece {
 
     public abstract List<Position> findBetweenPositionsWhenAttack(Positions positions);
 
-    protected abstract List<Position> findBetweenPositions(Position position, int rowDifference, int columnDifference);
+    protected abstract List<Position> findBetweenPositions(Position position, int fileDifference, int rankDifference);
 
     protected abstract Kind findKind();
 
     public List<Position> findBetweenPositions(Positions positions) {
         validateMovable(positions);
-        int rowDifference = positions.calculateRowDifference();
-        int columnDifference = positions.calculateColumnDifference();
+        int rankDifference = positions.calculateRankDifference();
+        int fileDifference = positions.calculateFileDifference();
 
-        return findBetweenPositions(positions.source(), rowDifference, columnDifference);
+        return findBetweenPositions(positions.source(), fileDifference, rankDifference);
     }
 
     private void validateMovable(Positions positions) {

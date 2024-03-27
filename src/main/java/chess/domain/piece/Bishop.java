@@ -32,7 +32,7 @@ public class Bishop extends Piece {
 
     @Override
     public boolean isMovable(Positions positions) {
-        return Math.abs(positions.calculateRowDifference()) == Math.abs(positions.calculateColumnDifference());
+        return Math.abs(positions.calculateRankDifference()) == Math.abs(positions.calculateFileDifference());
     }
 
     @Override
@@ -41,14 +41,14 @@ public class Bishop extends Piece {
     }
 
     @Override
-    protected List<Position> findBetweenPositions(Position position, int rowDifference, int columnDifference) {
-        int absoluteDifference = Math.abs(rowDifference);
-        int rowSign = rowDifference / absoluteDifference;
-        int columnSign = columnDifference / absoluteDifference;
+    protected List<Position> findBetweenPositions(Position position, int fileDifference, int rankDifference) {
+        int absoluteDifference = Math.abs(rankDifference);
+        int rankSign = rankDifference / absoluteDifference;
+        int fileSign = fileDifference / absoluteDifference;
 
         List<Position> positions = new ArrayList<>();
         for (int i = MIN_MOVEMENT; i < absoluteDifference; i++) {
-            positions.add(position.move(rowSign * i, columnSign * i));
+            positions.add(position.move(fileSign * i, rankSign * i));
         }
         return positions;
     }
