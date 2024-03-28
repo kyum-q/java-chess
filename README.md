@@ -106,6 +106,24 @@
   - king부터 rook까지 piece가 존재하지 않고 공격받고 있지 않은 경우, 
   - king을 rook 방향으로 두 칸 움직이고 rook을 king 반대 방향 바로 옆으로 이동할 수 있다.
 
+---
+
+### DB 구조
+- movement 
+  - `movement_id` bigint auto_increment PRIMARY KEY
+  - `source_position` char(2) not null
+  - `target_position` char(2) not null
+
+```mysql
+CREATE TABLE movement (
+    `movement_id` bigint auto_increment PRIMARY KEY,
+    `source_position` char(2) not null,
+    `target_position` char(2) not null
+);
+```
+
+---
+
 ### 출력 예시
 
 ```
