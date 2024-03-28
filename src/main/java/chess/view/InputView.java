@@ -1,5 +1,6 @@
 package chess.view;
 
+import chess.dao.converter.PositionConverter;
 import chess.domain.position.Positions;
 
 import java.util.Scanner;
@@ -33,8 +34,8 @@ public class InputView {
         StringTokenizer inputTokenizer = new StringTokenizer(SCANNER.nextLine());
         if (inputTokenizer.countTokens() == 2) {
             return new Positions(
-                    PositionConverter.generate(inputTokenizer.nextToken()),
-                    PositionConverter.generate(inputTokenizer.nextToken()));
+                    PositionConverter.convertPosition(inputTokenizer.nextToken()),
+                    PositionConverter.convertPosition(inputTokenizer.nextToken()));
         }
         throw new IllegalArgumentException("체스 보드 내에 존재하지 않는 위치입니다.");
     }

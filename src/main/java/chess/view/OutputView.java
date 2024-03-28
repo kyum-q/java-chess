@@ -11,8 +11,9 @@ import java.util.Map;
 
 public class OutputView {
     public static void printChessBoard(BoardDto boardDto) {
-        for (Rank rank : Rank.values()) {
-            printChessRow(boardDto, rank);
+        Rank[] ranks = Rank.values();
+        for (int i = ranks.length - 1; i >= 0; i--) {
+            printChessRow(boardDto, ranks[i]);
         }
         System.out.println();
     }

@@ -57,6 +57,14 @@ public class Position {
         return this.file == file;
     }
 
+    public File file() {
+        return file;
+    }
+
+    public Rank rank() {
+        return rank;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

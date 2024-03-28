@@ -5,12 +5,11 @@ import chess.domain.piece.character.Team;
 import chess.domain.position.File;
 import chess.domain.position.Position;
 import chess.domain.position.Rank;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class BoardFactoryTest {
     @DisplayName("Board에서 위치와 Character를 알 수 있다.")
@@ -54,6 +53,6 @@ class BoardFactoryTest {
                 Map.entry(Position.of(File.H, Rank.EIGHT), new Rook(Team.BLACK))
         );
 
-        assertThat(BoardFactory.generateStartBoard()).isEqualTo(expected);
+        Assertions.assertThat(BoardFactory.generateStartBoard()).isEqualTo(expected);
     }
 }
