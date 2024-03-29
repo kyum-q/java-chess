@@ -13,7 +13,7 @@ class ConnectionGeneratorTest {
     @Test
     void getConnection() {
         ConnectionGenerator generator = new ConnectionGenerator();
-        try (final var connection = generator.getConnection()) {
+        try (final var connection = generator.getConnection("chess")) {
             assertThat(connection).isNotNull();
         } catch (SQLException e) {
             throw new RuntimeException(e);
