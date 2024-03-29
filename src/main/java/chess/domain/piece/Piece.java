@@ -29,7 +29,7 @@ public abstract class Piece {
 
     protected abstract List<Position> findBetweenPositions(Position position, int fileDifference, int rankDifference);
 
-    protected abstract Kind findKind();
+    public abstract Kind findKind();
 
     public List<Position> findBetweenPositions(Positions positions) {
         validateMovable(positions);
@@ -68,6 +68,14 @@ public abstract class Piece {
 
     public double findMaxScore() {
         return findKind().maxScore();
+    }
+
+    public Team team() {
+        return team;
+    }
+
+    public boolean isMoved() {
+        return isMoved;
     }
 
     @Override

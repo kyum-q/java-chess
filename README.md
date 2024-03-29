@@ -123,8 +123,9 @@ CREATE TABLE chess_game
         `piece_id` bigint auto_increment,
         `kind`     varchar(50) not null,
         `team`     varchar(50) not null,
-        `is_moved` boolean default false,
-        PRIMARY KEY (piece_id)
+        `is_moved` boolean not null,
+        PRIMARY KEY (piece_id),
+        UNIQUE (kind, team, is_moved)
       );
 
 CREATE TABLE position

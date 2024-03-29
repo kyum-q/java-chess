@@ -58,7 +58,7 @@ public class Queen extends Piece {
     }
 
     @Override
-    protected Kind findKind() {
+    public Kind findKind() {
         return Kind.QUEEN;
     }
 }

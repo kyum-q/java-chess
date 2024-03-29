@@ -49,7 +49,7 @@ public class King extends Piece {
     }
 
     @Override
-    protected Kind findKind() {
+    public Kind findKind() {
         return Kind.KING;
     }
 }

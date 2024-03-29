@@ -54,7 +54,7 @@ public class Bishop extends Piece {
     }
 
     @Override
-    protected Kind findKind() {
+    public Kind findKind() {
         return Kind.BISHOP;
     }
 }
