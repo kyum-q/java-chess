@@ -108,17 +108,33 @@
 
 ---
 
-### DB 구조
-- movement 
-  - `movement_id` bigint auto_increment PRIMARY KEY
-  - `source_position` char(2) not null
-  - `target_position` char(2) not null
+### DB table
 
 ```mysql
-CREATE TABLE movement (
-    `movement_id` bigint auto_increment PRIMARY KEY,
-    `source_position` char(2) not null,
-    `target_position` char(2) not null
+CREATE TABLE chess_game
+(
+  `game_id` bigint auto_increment,
+  `turn`    varchar(50) not null,
+  PRIMARY KEY (game_id)
+);
+
+      CREATE TABLE piece
+      (
+        `piece_id` bigint auto_increment,
+        `kind`     varchar(50) not null,
+        `team`     varchar(50) not null,
+        `is_moved` boolean default false,
+        PRIMARY KEY (piece_id)
+      );
+
+CREATE TABLE position
+(
+    `position` char(2),
+    `game_id`  bigint not null,
+    `piece_id` bigint,
+    PRIMARY KEY (position),
+    FOREIGN KEY (game_id) REFERENCES chess_game(game_id) ON UPDATE CASCADE,
+    FOREIGN KEY (piece_id) REFERENCES piece(piece_id) ON UPDATE CASCADE
 );
 ```
 
