@@ -120,7 +120,7 @@ CREATE TABLE chess_game
 
       CREATE TABLE piece
       (
-        `piece_id` bigint auto_increment,
+        `piece_id` char(3),
         `kind`     varchar(50) not null,
         `team`     varchar(50) not null,
         `is_moved` boolean not null,
@@ -132,7 +132,7 @@ CREATE TABLE position
 (
     `position` char(2),
     `game_id`  bigint not null,
-    `piece_id` bigint,
+    `piece_id` char(3),
     PRIMARY KEY (position),
     FOREIGN KEY (game_id) REFERENCES chess_game(game_id) ON UPDATE CASCADE,
     FOREIGN KEY (piece_id) REFERENCES piece(piece_id) ON UPDATE CASCADE
