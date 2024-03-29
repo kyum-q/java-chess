@@ -1,4 +1,4 @@
-package chess.dao;
+package chess.dao.converter;
 
 import chess.dao.converter.FileConverter;
 import chess.domain.position.File;

@@ -1,4 +1,4 @@
-package chess.dao;
+package chess.dao.converter;
 
 import chess.dao.converter.RankConverter;
 import chess.domain.position.Rank;
