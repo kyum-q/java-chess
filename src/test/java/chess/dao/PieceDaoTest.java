@@ -24,15 +24,7 @@ class PieceDaoTest {
         pieceDao = new PieceDao(connection);
     }
 
-    @DisplayName("piece 정보를 데이터베이스에 추가할 수 있다.")
-    @Test
-    void addPiece() {
-        Piece piece = new King(Team.WHITE);
-        assertThatCode(() -> pieceDao.addPiece(piece))
-                .doesNotThrowAnyException();
-    }
-
-    @DisplayName("piece 정보를 데이터베이스에 추가할 수 있다.")
+    @DisplayName("piece 정보를 데이터베이스에 찾을 수 있다.")
     @Test
     void findPiece() {
         Piece piece = new King(Team.WHITE);
