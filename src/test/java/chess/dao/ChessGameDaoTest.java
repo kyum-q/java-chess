@@ -41,31 +41,30 @@ class ChessGameDaoTest {
     @DisplayName("체스 게임을 추가할 수 있다.")
     @Test
     void addChessGame() {
-        assertThatCode(() -> chessGameDao.addChessGame("newGame", Team.WHITE))
+        assertThatCode(() -> chessGameDao.addChessGame("newGame"))
                 .doesNotThrowAnyException();;
     }
 
     @DisplayName("마지막에 추가된 게임 아이디를 알 수 있다.")
     @Test
     void findIdByLastGame() {
-        chessGameDao.addChessGame("newGame", Team.WHITE);
+        chessGameDao.addChessGame("newGame");
         assertThat(chessGameDao.findIdByLastGame())
                 .isEqualTo("newGame");
     }
 
     @DisplayName("해당 게임에 turn(팀)을 알 수 있다.")
-    @ParameterizedTest
-    @EnumSource()
-    void findTeamById(Team team) {
-        chessGameDao.addChessGame("newGame", team);
+    @Test
+    void findTeamById() {
+        chessGameDao.addChessGame("newGame");
         assertThat(chessGameDao.findTeamById("newGame"))
-                .isEqualTo(team);
+                .isEqualTo(Team.WHITE);
     }
 
     @DisplayName("해당 게임의 turn(팀)을 업데이트 할 수 있다.")
     @Test
     void updateTurn() {
-        chessGameDao.addChessGame("newGame", Team.WHITE);
+        chessGameDao.addChessGame("newGame");
         chessGameDao.updateTurn("newGame", Team.BLACK);
         assertThat(chessGameDao.findTeamById("newGame"))
                 .isEqualTo(Team.BLACK);

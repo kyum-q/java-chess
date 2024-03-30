@@ -12,22 +12,21 @@ public class ChessGameDao {
         this.connection = connection;
     }
 
-    public void addChessGame(String id, Team team) {
+    public void addChessGame(String id) {
         if(checkById(id)) {
             throw new IllegalStateException("해당 id에 게임이 이미 존재합니다.");
         }
 
-        final var query = "INSERT INTO chess_game VALUES(?, ?)";
+        final var query = "INSERT INTO chess_game(game_id) VALUES(?)";
         try (final var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, id);
-            preparedStatement.setString(2, team.name());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private boolean checkById(String id) {
+    public boolean checkById(String id) {
         final var query = "SELECT game_id FROM chess_game WHERE game_id = ?";
         try (final var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, id);
