@@ -114,7 +114,7 @@
 CREATE TABLE chess_game
 (
   `game_id` varchar(255),
-  `turn`    varchar(50) not null,
+  `turn`    varchar(50) DEFAULT 'WHITE',
   PRIMARY KEY (game_id)
 );
 
@@ -128,11 +128,11 @@ CREATE TABLE piece
   UNIQUE (kind, team, is_moved)
 );
 
-CREATE TABLE position
+CREATE TABLE board
 (
   `position` char(2),
-  `game_id`  varchar(255),
-  `piece_id` char(3),
+  `game_id`  varchar(255) not null,
+  `piece_id` char(3) not null,
   PRIMARY KEY (position),
   FOREIGN KEY (game_id) REFERENCES chess_game (game_id) ON UPDATE CASCADE,
   FOREIGN KEY (piece_id) REFERENCES piece (piece_id) ON UPDATE CASCADE
