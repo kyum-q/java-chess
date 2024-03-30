@@ -29,9 +29,9 @@ public class BoardDao {
 
     public void deletePosition(Position position) {
         final var source = PositionConverter.convertString(position);
-        final var query = "DELETE FROM `board` WHERE (`position` = %s)".formatted(source);
+        final var query = "DELETE FROM board WHERE position = '%s'".formatted(source);
         try (final var preparedStatement = connection.prepareStatement(query)) {
-            final var resultSet = preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
         } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
@@ -44,7 +44,7 @@ public class BoardDao {
         try (final var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, gameId);
             final var resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 board.put(
                         PositionConverter.convertPosition(resultSet.getString("position")),
                         resultSet.getString("piece_id")
