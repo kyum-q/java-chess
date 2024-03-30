@@ -113,7 +113,7 @@
 ```mysql
 CREATE TABLE chess_game
 (
-  `game_id` bigint auto_increment,
+  `game_id` varchar(255),
   `turn`    varchar(50) not null,
   PRIMARY KEY (game_id)
 );
@@ -131,7 +131,7 @@ CREATE TABLE piece
 CREATE TABLE position
 (
   `position` char(2),
-  `game_id`  bigint not null,
+  `game_id`  varchar(255),
   `piece_id` char(3),
   PRIMARY KEY (position),
   FOREIGN KEY (game_id) REFERENCES chess_game (game_id) ON UPDATE CASCADE,
