@@ -58,7 +58,11 @@ public class ChessGame {
         return board.calculateScore(team);
     }
 
-    public Board getBoard() {
+    public Board board() {
         return board;
+    }
+
+    public Team currentTeam() {
+        return currentTeam;
     }
 }

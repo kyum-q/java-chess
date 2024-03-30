@@ -137,9 +137,7 @@ CREATE TABLE board
   FOREIGN KEY (game_id) REFERENCES chess_game (game_id) ON UPDATE CASCADE,
   FOREIGN KEY (piece_id) REFERENCES piece (piece_id) ON UPDATE CASCADE
 );
-```
 
-```mysql
 INSERT INTO `piece` VALUES ('000', 'PAWN', 'BLACK', '0');
 INSERT INTO `piece` VALUES ('001', 'PAWN', 'BLACK', '1');
 INSERT INTO `piece` VALUES ('010', 'PAWN', 'WHITE', '0');
