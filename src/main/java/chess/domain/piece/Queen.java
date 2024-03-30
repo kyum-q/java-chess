@@ -14,7 +14,7 @@ public class Queen extends Piece {
         this(team, false);
     }
 
-    private Queen(Team team, boolean isMoved) {
+    public Queen(Team team, boolean isMoved) {
         super(team, isMoved);
     }
 

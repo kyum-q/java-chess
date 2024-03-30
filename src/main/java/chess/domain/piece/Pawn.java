@@ -18,7 +18,7 @@ public class Pawn extends Piece {
         this(team, false);
     }
 
-    private Pawn(Team team, boolean isMoved) {
+    public Pawn(Team team, boolean isMoved) {
         super(team, isMoved);
     }
 

@@ -13,7 +13,7 @@ public class Bishop extends Piece {
         this(team, false);
     }
 
-    private Bishop(Team team, boolean isMoved) {
+    public Bishop(Team team, boolean isMoved) {
         super(team, isMoved);
     }
 

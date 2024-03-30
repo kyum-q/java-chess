@@ -14,7 +14,7 @@ public class Rook extends Piece {
         this(team, false);
     }
 
-    private Rook(Team team, boolean isMoved) {
+    public Rook(Team team, boolean isMoved) {
         super(team, isMoved);
     }
 

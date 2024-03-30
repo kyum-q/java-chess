@@ -16,7 +16,7 @@ public class Knight extends Piece {
         this(team, false);
     }
 
-    private Knight(Team team, boolean isMoved) {
+    public Knight(Team team, boolean isMoved) {
         super(team, isMoved);
     }
 

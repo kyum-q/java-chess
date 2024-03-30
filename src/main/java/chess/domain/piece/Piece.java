@@ -14,7 +14,7 @@ public abstract class Piece {
     protected final Team team;
     protected final boolean isMoved;
 
-    protected Piece(Team team, boolean isMoved) {
+    public Piece(Team team, boolean isMoved) {
         this.team = team;
         this.isMoved = isMoved;
     }

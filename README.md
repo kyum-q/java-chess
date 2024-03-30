@@ -118,25 +118,57 @@ CREATE TABLE chess_game
   PRIMARY KEY (game_id)
 );
 
-      CREATE TABLE piece
-      (
-        `piece_id` char(3),
-        `kind`     varchar(50) not null,
-        `team`     varchar(50) not null,
-        `is_moved` boolean not null,
-        PRIMARY KEY (piece_id),
-        UNIQUE (kind, team, is_moved)
-      );
+CREATE TABLE piece
+(
+  `piece_id` char(3),
+  `kind`     varchar(50) not null,
+  `team`     varchar(50) not null,
+  `is_moved` boolean     not null,
+  PRIMARY KEY (piece_id),
+  UNIQUE (kind, team, is_moved)
+);
 
 CREATE TABLE position
 (
-    `position` char(2),
-    `game_id`  bigint not null,
-    `piece_id` char(3),
-    PRIMARY KEY (position),
-    FOREIGN KEY (game_id) REFERENCES chess_game(game_id) ON UPDATE CASCADE,
-    FOREIGN KEY (piece_id) REFERENCES piece(piece_id) ON UPDATE CASCADE
+  `position` char(2),
+  `game_id`  bigint not null,
+  `piece_id` char(3),
+  PRIMARY KEY (position),
+  FOREIGN KEY (game_id) REFERENCES chess_game (game_id) ON UPDATE CASCADE,
+  FOREIGN KEY (piece_id) REFERENCES piece (piece_id) ON UPDATE CASCADE
 );
+```
+
+```mysql
+INSERT INTO `piece` VALUES ('000', 'PAWN', 'BLACK', '0');
+INSERT INTO `piece` VALUES ('001', 'PAWN', 'BLACK', '1');
+INSERT INTO `piece` VALUES ('010', 'PAWN', 'WHITE', '0');
+INSERT INTO `piece` VALUES ('011', 'PAWN', 'WHITE', '1');
+
+INSERT INTO `piece` VALUES ('100', 'KNIGHT', 'BLACK', '0');
+INSERT INTO `piece` VALUES ('101', 'KNIGHT', 'BLACK', '1');
+INSERT INTO `piece` VALUES ('110', 'KNIGHT', 'WHITE', '0');
+INSERT INTO `piece` VALUES ('111', 'KNIGHT', 'WHITE', '1');
+
+INSERT INTO `piece` VALUES ('200', 'BISHOP', 'BLACK', '0');
+INSERT INTO `piece` VALUES ('201', 'BISHOP', 'BLACK', '1');
+INSERT INTO `piece` VALUES ('210', 'BISHOP', 'WHITE', '0');
+INSERT INTO `piece` VALUES ('211', 'BISHOP', 'WHITE', '1');
+
+INSERT INTO `piece` VALUES ('300', 'ROOK', 'BLACK', '0');
+INSERT INTO `piece` VALUES ('301', 'ROOK', 'BLACK', '1');
+INSERT INTO `piece` VALUES ('310', 'ROOK', 'WHITE', '0');
+INSERT INTO `piece` VALUES ('311', 'ROOK', 'WHITE', '1');
+
+INSERT INTO `piece` VALUES ('400', 'QUEEN', 'BLACK', '0');
+INSERT INTO `piece` VALUES ('401', 'QUEEN', 'BLACK', '1');
+INSERT INTO `piece` VALUES ('410', 'QUEEN', 'WHITE', '0');
+INSERT INTO `piece` VALUES ('411', 'QUEEN', 'WHITE', '1');
+
+INSERT INTO `piece` VALUES ('500', 'KING', 'BLACK', '0');
+INSERT INTO `piece` VALUES ('501', 'KING', 'BLACK', '1');
+INSERT INTO `piece` VALUES ('510', 'KING', 'WHITE', '0');
+INSERT INTO `piece` VALUES ('511', 'KING', 'WHITE', '1');
 ```
 
 ---
