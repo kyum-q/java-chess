@@ -30,6 +30,4 @@ public class PieceDao {
         }
         throw new IllegalStateException("해당 id에 Piece가 없습니다.");
     }
-
-
 }
