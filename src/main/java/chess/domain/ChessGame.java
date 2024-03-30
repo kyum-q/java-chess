@@ -30,17 +30,17 @@ public class ChessGame {
     }
 
     public Outcome findOutcome() {
-        if(findCheck().isCheckMate()) {
+        if (findCheck().isCheckMate()) {
             return Outcome.of(currentTeam);
         }
-        if(findScore(Team.WHITE) == findScore(Team.BLACK)) {
+        if (findScore(Team.WHITE) == findScore(Team.BLACK)) {
             return Outcome.DRAW;
         }
         return Outcome.of(findWinner());
     }
 
     private Team findWinner() {
-        if(findScore(Team.WHITE) > findScore(Team.BLACK)) {
+        if (findScore(Team.WHITE) > findScore(Team.BLACK)) {
             return Team.WHITE;
         }
         return Team.BLACK;

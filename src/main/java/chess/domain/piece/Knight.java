@@ -1,9 +1,9 @@
 package chess.domain.piece;
 
-import chess.domain.position.Position;
-import chess.domain.position.Positions;
 import chess.domain.piece.character.Kind;
 import chess.domain.piece.character.Team;
+import chess.domain.position.Position;
+import chess.domain.position.Positions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public class Knight extends Piece {
     }
 
     @Override
-    protected List<Position> findBetweenPositions(Position position, int fileDifference,  int rankDifference) {
+    protected List<Position> findBetweenPositions(Position position, int fileDifference, int rankDifference) {
         return new ArrayList<>();
     }
 

@@ -12,7 +12,7 @@ public class PieceConverter {
     }
 
     public static String booleanToTinyInt(boolean value) {
-        if(value) {
+        if (value) {
             return "1";
         }
         return "0";

@@ -1,9 +1,9 @@
 package chess.domain.piece;
 
+import chess.domain.piece.character.Team;
 import chess.domain.position.File;
 import chess.domain.position.Position;
 import chess.domain.position.Positions;
-import chess.domain.piece.character.Team;
 import chess.domain.position.Rank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

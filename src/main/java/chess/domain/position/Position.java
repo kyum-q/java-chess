@@ -14,7 +14,7 @@ public class Position {
         positions = new ArrayList<>();
 
         for (File file : File.values()) {
-            for(Rank rank : Rank.values()) {
+            for (Rank rank : Rank.values()) {
                 positions.add(new Position(file, rank));
             }
         }

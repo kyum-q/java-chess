@@ -26,7 +26,7 @@ public class InputView {
 
     public static Command inputCommand() {
         Command command = Command.find(SCANNER.next());
-        if(Command.START == command) {
+        if (Command.START == command) {
             throw new IllegalArgumentException("게임이 시작한 이후, 다시 게임을 시작할 수 없습니다.");
         }
         return command;

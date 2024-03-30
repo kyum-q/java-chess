@@ -1,6 +1,5 @@
 package chess.dao;
 
-import chess.dao.ConnectionGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

@@ -1,9 +1,9 @@
 package chess.domain.piece;
 
-import chess.domain.position.Position;
-import chess.domain.position.Positions;
 import chess.domain.piece.character.Kind;
 import chess.domain.piece.character.Team;
+import chess.domain.position.Position;
+import chess.domain.position.Positions;
 
 import java.util.List;
 import java.util.Objects;
@@ -63,7 +63,7 @@ public abstract class Piece {
     }
 
     public double findMinScore() {
-       return findKind().minScore();
+        return findKind().minScore();
     }
 
     public double findMaxScore() {

@@ -1,9 +1,9 @@
 package chess.domain.piece;
 
-import chess.domain.position.Position;
-import chess.domain.position.Positions;
 import chess.domain.piece.character.Kind;
 import chess.domain.piece.character.Team;
+import chess.domain.position.Position;
+import chess.domain.position.Positions;
 
 import java.util.ArrayList;
 import java.util.List;

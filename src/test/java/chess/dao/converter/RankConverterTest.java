@@ -1,6 +1,5 @@
 package chess.dao.converter;
 
-import chess.dao.converter.RankConverter;
 import chess.domain.position.Rank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

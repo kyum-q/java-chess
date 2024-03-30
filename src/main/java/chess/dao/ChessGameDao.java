@@ -13,7 +13,7 @@ public class ChessGameDao {
     }
 
     public void addChessGame(String id) {
-        if(checkById(id)) {
+        if (checkById(id)) {
             throw new IllegalStateException("해당 id에 게임이 이미 존재합니다.");
         }
 

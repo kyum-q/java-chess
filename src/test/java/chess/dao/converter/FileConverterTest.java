@@ -1,6 +1,5 @@
 package chess.dao.converter;
 
-import chess.dao.converter.FileConverter;
 import chess.domain.position.File;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
