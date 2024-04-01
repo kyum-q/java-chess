@@ -2,6 +2,7 @@ package chess.dao;
 
 import chess.dao.converter.PositionConverter;
 import chess.domain.position.Position;
+import chess.domain.position.Positions;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -16,7 +17,7 @@ public class BoardDao {
     }
 
     public void addPosition(Position position, String gameId, String pieceId) {
-        final var query = "INSERT INTO board VALUES(?, ?, ?)";
+        final var query = "INSERT INTO board(position, game_id, piece_id) VALUES(?, ?, ?)";
         try (final var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, PositionConverter.convertString(position));
             preparedStatement.setString(2, gameId);
@@ -27,9 +28,11 @@ public class BoardDao {
         }
     }
 
-    public void deletePosition(Position position) {
-        final var source = PositionConverter.convertString(position);
-        final var query = "DELETE FROM board WHERE position = '%s'".formatted(source);
+    public void deletePosition(String gameId, Positions positions) {
+        final var source = PositionConverter.convertString(positions.source());
+        final var target = PositionConverter.convertString(positions.target());
+        final var query = "DELETE FROM board WHERE game_id = '%s' AND (position = '%s' OR position = '%s')"
+                .formatted(gameId, source, target);
         try (final var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.executeUpdate();
         } catch (final SQLException e) {
