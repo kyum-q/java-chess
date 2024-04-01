@@ -93,7 +93,7 @@ public class ChessController {
 
     private void turnUpdateDB(String gameId, Team team) {
         ChessGameDao chessGameDao = new ChessGameDao(connection);
-        chessGameDao.updateTurn(gameId, team);
+        chessGameDao.updateTurn(gameId, team.opponent());
     }
 
     private void moveChessUpdateDB(String gameId, Positions positions, Piece piece) {
