@@ -23,7 +23,7 @@ public class ChessGame {
     }
 
     public CheckState findCheck() {
-        if (board.findCheckState(currentTeam) != CheckState.SAFE) {
+        if (!board.findCheckState(currentTeam).isSafe()) {
             throw new IllegalArgumentException("체크 상태를 벗어나지 않았습니다.");
         }
         return board.findCheckState(currentTeam.opponent());
