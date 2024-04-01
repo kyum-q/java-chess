@@ -17,11 +17,15 @@ import chess.view.Command;
 import chess.view.InputView;
 import chess.view.OutputView;
 
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ChessController {
+    private Connection connection;
+
     public void play() {
+        connection = ConnectionGenerator.getConnection("chess");
         String gameId = InputView.inputGameId();
         ChessGame chessGame = makeGame(gameId);
         OutputView.printChessBoard(new BoardDto(chessGame.board()));
@@ -30,10 +34,11 @@ public class ChessController {
             gamePlayByCommand(chessGame, command, gameId);
         }
         printChessScore(chessGame);
+        ConnectionGenerator.closeConnection(connection);
     }
 
     private ChessGame makeGame(String gameId) {
-        ChessGameDao chessGameDao = new ChessGameDao(ConnectionGenerator.getConnection("chess"));
+        ChessGameDao chessGameDao = new ChessGameDao(connection);
         boolean isPlayed = chessGameDao.checkById(gameId);
         if (!isPlayed) {
             chessGameDao.addChessGame(gameId);
@@ -42,7 +47,7 @@ public class ChessController {
     }
 
     private Board makeBoard(String gameId, boolean isPlayed) {
-        BoardDao boardDao = new BoardDao(ConnectionGenerator.getConnection("chess"));
+        BoardDao boardDao = new BoardDao(connection);
         if (!isPlayed) {
             Map<Position, Piece> pieces = BoardFactory.generateStartBoard();
             pieces.forEach((key, value) -> boardDao.addPosition(key, gameId, PieceConverter.converterId(value)));
@@ -52,7 +57,7 @@ public class ChessController {
 
     private Map<Position, Piece> makePieces(Map<Position, String> board) {
         Map<Position, Piece> pieces = new HashMap<>();
-        PieceDao pieceDao = new PieceDao(ConnectionGenerator.getConnection("chess"));
+        PieceDao pieceDao = new PieceDao(connection);
         for (Map.Entry<Position, String> pieceId : board.entrySet()) {
             pieces.put(pieceId.getKey(), pieceDao.findById(pieceId.getValue()));
         }
@@ -83,12 +88,12 @@ public class ChessController {
     }
 
     private void turnUpdateDB(String gameId, Team team) {
-        ChessGameDao chessGameDao = new ChessGameDao(ConnectionGenerator.getConnection("chess"));
+        ChessGameDao chessGameDao = new ChessGameDao(connection);
         chessGameDao.updateTurn(gameId, team);
     }
 
     private void moveChessUpdateDB(String gameId, Positions positions, Piece piece) {
-        BoardDao boardDao = new BoardDao(ConnectionGenerator.getConnection("chess"));
+        BoardDao boardDao = new BoardDao(connection);
         boardDao.deletePosition(gameId, positions);
         boardDao.addPosition(positions.target(), gameId, PieceConverter.converterId(piece));
     }
