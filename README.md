@@ -130,10 +130,12 @@ CREATE TABLE piece
 
 CREATE TABLE board
 (
+  `board_id` bigint auto_increment, 
   `position` char(2),
   `game_id`  varchar(255) not null,
   `piece_id` char(3) not null,
-  PRIMARY KEY (position),
+  PRIMARY KEY (board_id),
+  UNIQUE (position, game_id),
   FOREIGN KEY (game_id) REFERENCES chess_game (game_id) ON UPDATE CASCADE,
   FOREIGN KEY (piece_id) REFERENCES piece (piece_id) ON UPDATE CASCADE
 );
