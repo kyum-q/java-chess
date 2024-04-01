@@ -1,5 +1,6 @@
 package chess.domain.piece;
 
+import chess.domain.Calculator;
 import chess.domain.piece.character.Kind;
 import chess.domain.piece.character.Team;
 import chess.domain.position.Position;
@@ -43,8 +44,8 @@ public class Bishop extends Piece {
     @Override
     protected List<Position> findBetweenPositions(Position position, int fileDifference, int rankDifference) {
         int absoluteDifference = Math.abs(rankDifference);
-        int rankSign = rankDifference / absoluteDifference;
-        int fileSign = fileDifference / absoluteDifference;
+        int rankSign = Calculator.calculateMinMovement(rankDifference);
+        int fileSign = Calculator.calculateMinMovement(fileDifference);
 
         List<Position> positions = new ArrayList<>();
         for (int i = MIN_MOVEMENT; i < absoluteDifference; i++) {
