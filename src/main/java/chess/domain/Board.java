@@ -212,6 +212,9 @@ public record Board(Map<Position, Piece> pieces) {
                 .filter(position -> position.checkFile(file))
                 .count();
 
+        if(count == 0) {
+            return 0;
+        }
         if (count > 1) {
             return findAnyPiece(positions).findMinScore() * count;
         }
