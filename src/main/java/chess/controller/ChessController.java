@@ -23,7 +23,7 @@ public class ChessController {
 
     public ChessController() {
         connection = ConnectionGenerator.getConnection("chess");
-        new SettingDao(connection).settingPiece();
+        new SettingDao(connection).settingTable();
         new PieceDao(connection).settingPiece();
         ConnectionGenerator.closeConnection(connection);
     }

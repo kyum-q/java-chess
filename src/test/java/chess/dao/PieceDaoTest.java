@@ -20,6 +20,7 @@ class PieceDaoTest {
     void connection() {
         Connection connection = new ConnectionGenerator().getConnection("chess_test");
         pieceDao = new PieceDao(connection);
+        pieceDao.settingPiece();
     }
 
     @DisplayName("piece 정보를 데이터베이스에 찾을 수 있다.")

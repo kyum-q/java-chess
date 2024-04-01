@@ -19,6 +19,8 @@ class ChessGameDaoTest {
     @BeforeEach
     void connection() {
         connection = new ConnectionGenerator().getConnection("chess_test");
+        new SettingDao(connection).settingTable();
+        new PieceDao(connection).settingPiece();
 
         deleteTable();
         chessGameDao = new ChessGameDao(connection);
