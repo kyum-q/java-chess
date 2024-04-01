@@ -29,10 +29,7 @@ public class Position {
     }
 
     public static Position of(File file, Rank rank) {
-        return positions.stream()
-                .filter(position -> position.file == file && position.rank == rank)
-                .findAny()
-                .orElseThrow(() -> new IllegalStateException("캐시에 해당 값이 존재하지 않습니다."));
+        return positions.get(file.ordinal() * File.values().length + rank.ordinal());
     }
 
     public Position move(int fileMoveAmount, int rankMoveAmount) {
