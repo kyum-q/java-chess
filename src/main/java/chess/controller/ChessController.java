@@ -43,7 +43,7 @@ public class ChessController {
         if (!isPlayed) {
             chessGameDao.addChessGame(gameId);
         }
-        return new ChessGame(makeBoard(gameId, isPlayed));
+        return new ChessGame(makeBoard(gameId, isPlayed), Team.WHITE);
     }
 
     private Board makeBoard(String gameId, boolean isPlayed) {

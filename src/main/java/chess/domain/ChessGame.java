@@ -11,22 +11,15 @@ public class ChessGame {
     private final Board board;
     private Team currentTeam;
 
-    public ChessGame(Board board) {
+    public ChessGame(Board board, Team currentTeam) {
         this.board = board;
-        this.currentTeam = Team.BLACK;
+        this.currentTeam = currentTeam;
     }
 
     public void movePiece(Positions positions) {
-        currentTeam = currentTeam.opponent();
         board.validateSameTeamByPosition(positions.source(), currentTeam);
         board.move(positions);
-    }
-
-    public CheckState findCheck() {
-        if (!board.findCheckState(currentTeam).isSafe()) {
-            throw new IllegalArgumentException("체크 상태를 벗어나지 않았습니다.");
-        }
-        return board.findCheckState(currentTeam.opponent());
+        currentTeam = currentTeam.opponent();
     }
 
     public Outcome findOutcome() {
@@ -37,6 +30,13 @@ public class ChessGame {
             return Outcome.DRAW;
         }
         return Outcome.of(findWinner());
+    }
+
+    public CheckState findCheck() {
+        if (!board.findCheckState(currentTeam).isSafe()) {
+            throw new IllegalArgumentException("체크 상태를 벗어나지 않았습니다.");
+        }
+        return board.findCheckState(currentTeam.opponent());
     }
 
     private Team findWinner() {
