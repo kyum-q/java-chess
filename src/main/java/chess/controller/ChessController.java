@@ -1,9 +1,6 @@
 package chess.controller;
 
-import chess.dao.BoardDao;
-import chess.dao.ChessGameDao;
-import chess.dao.ConnectionGenerator;
-import chess.dao.PieceDao;
+import chess.dao.*;
 import chess.dao.converter.PieceConverter;
 import chess.domain.Board;
 import chess.domain.BoardFactory;
@@ -26,6 +23,7 @@ public class ChessController {
 
     public ChessController() {
         connection = ConnectionGenerator.getConnection("chess");
+        new SettingDao(connection).settingPiece();
         new PieceDao(connection).settingPiece();
         ConnectionGenerator.closeConnection(connection);
     }

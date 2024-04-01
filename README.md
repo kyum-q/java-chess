@@ -111,24 +111,24 @@
 ### DB table
 
 ```mysql
-CREATE TABLE chess_game
+CREATE TABLE IF NOT EXISTS chess_game
 (
   `game_id` varchar(255),
-  `turn`    varchar(50) DEFAULT 'WHITE',
+  `turn`    enum('WHITE', 'BLACK') DEFAULT 'WHITE',
   PRIMARY KEY (game_id)
 );
 
-CREATE TABLE piece
+CREATE TABLE IF NOT EXISTS piece
 (
   `piece_id` char(3),
   `kind`     varchar(50) not null,
-  `team`     varchar(50) not null,
+  `team`     enum('WHITE', 'BLACK') not null,
   `is_moved` boolean     not null,
   PRIMARY KEY (piece_id),
   UNIQUE (kind, team, is_moved)
 );
 
-CREATE TABLE board
+CREATE TABLE IF NOT EXISTS board
 (
   `board_id` bigint auto_increment, 
   `position` char(2),
