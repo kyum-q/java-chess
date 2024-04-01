@@ -24,6 +24,12 @@ import java.util.Map;
 public class ChessController {
     private Connection connection;
 
+    public ChessController() {
+        connection = ConnectionGenerator.getConnection("chess");
+        new PieceDao(connection).settingPiece();
+        ConnectionGenerator.closeConnection(connection);
+    }
+
     public void play() {
         connection = ConnectionGenerator.getConnection("chess");
         String gameId = InputView.inputGameId();
