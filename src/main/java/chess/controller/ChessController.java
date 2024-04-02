@@ -30,9 +30,13 @@ public class ChessController {
         String gameId = InputView.inputGameId();
         ChessGame chessGame = makeGame(gameId);
         OutputView.printChessBoard(new BoardDto(chessGame.board()));
-        Command command;
-        while (!chessGame.findCheck().isCheckMate() && (command = InputView.inputCommand()) != Command.END) {
-            gamePlayByCommand(chessGame, command, gameId);
+
+        while (!chessGame.findCheck().isCheckMate()) {
+            Command command = InputView.inputCommand();
+            if(command.isEnd()) {
+                break;
+            }
+            playGame(chessGame, command, gameId);
         }
         printChessScore(chessGame);
     }
@@ -43,7 +47,7 @@ public class ChessController {
         if (!isPlayed) {
             chessGameDao.addChessGame(gameId);
         }
-        return new ChessGame(makeBoard(gameId, isPlayed), Team.WHITE);
+        return new ChessGame(makeBoard(gameId, isPlayed), chessGameDao.findTeamById(gameId));
     }
 
     private Board makeBoard(String gameId, boolean isPlayed) {
@@ -63,12 +67,12 @@ public class ChessController {
         return pieces;
     }
 
-    private void gamePlayByCommand(ChessGame chessGame, Command command, String gameId) {
-        if (command == Command.STATUS) {
-            printChessScore(chessGame);
-        }
-        if (command == Command.MOVE) {
+    private void playGame(ChessGame chessGame, Command command, String gameId) {
+        if (command.isMove()) {
             moveChess(chessGame, gameId);
+        }
+        if (command.isStart()) {
+            printChessScore(chessGame);
         }
     }
 

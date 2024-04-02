@@ -18,7 +18,7 @@ public class InputView {
                 Command.MOVE.getValue(), Command.MOVE.getValue());
 
         String commandValue = SCANNER.next();
-        if (Command.START != Command.find(commandValue)) {
+        if (!Command.find(commandValue).isStart()) {
             throw new IllegalArgumentException("게임 시작 전, 다른 명령어를 입력할 수 없습니다.");
         }
         return SCANNER.next();
@@ -26,7 +26,7 @@ public class InputView {
 
     public static Command inputCommand() {
         Command command = Command.find(SCANNER.next());
-        if (Command.START == command) {
+        if (command.isStart()) {
             throw new IllegalArgumentException("게임이 시작한 이후, 다시 게임을 시작할 수 없습니다.");
         }
         return command;

@@ -22,6 +22,22 @@ public enum Command {
                 .orElseThrow(() -> new IllegalArgumentException("해당 명령어는 존재하지 않습니다."));
     }
 
+    public boolean isStart() {
+        return this == START;
+    }
+
+    public boolean isEnd() {
+        return this == END;
+    }
+
+    public boolean isMove() {
+        return this == MOVE;
+    }
+
+    public boolean isStatus() {
+        return this == STATUS;
+    }
+
     public String getValue() {
         return value;
     }
