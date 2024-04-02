@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,7 +17,7 @@ class ChessGameDaoTest {
 
     @BeforeEach
     void connection() {
-        SettingDao.settingTable(DATABASE_NAME);
+        SettingDB.settingTable(DATABASE_NAME);
 
         deleteTable();
         chessGameDao = new ChessGameDao(DATABASE_NAME);

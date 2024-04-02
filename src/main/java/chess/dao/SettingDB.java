@@ -1,9 +1,8 @@
 package chess.dao;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
-public class SettingDao {
+public class SettingDB {
     public static void settingTable(String databaseName) {
         final var query = "CREATE TABLE IF NOT EXISTS chess_game" +
                 "(" +

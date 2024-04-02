@@ -2,7 +2,7 @@ package chess.controller;
 
 import chess.dao.BoardDao;
 import chess.dao.ChessGameDao;
-import chess.dao.SettingDao;
+import chess.dao.SettingDB;
 import chess.dao.converter.PieceConverter;
 import chess.domain.Board;
 import chess.domain.BoardFactory;
@@ -23,7 +23,7 @@ public class ChessController {
     private static final String DATABASE_NAME = "chess";
 
     public ChessController() {
-        SettingDao.settingTable(DATABASE_NAME);
+        SettingDB.settingTable(DATABASE_NAME);
     }
 
     public void play() {
