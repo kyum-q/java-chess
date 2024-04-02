@@ -4,12 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class SettingDao {
-    private final Connection connection;
-
-    public SettingDao(Connection connection) {
-        this.connection = connection;
-    }
-    public void settingTable() {
+    public static void settingTable(String databaseName) {
         final var query = "CREATE TABLE IF NOT EXISTS chess_game" +
                 "(" +
                 "  `game_id` varchar(255)," +
@@ -37,7 +32,7 @@ public class SettingDao {
                 "  FOREIGN KEY (piece_id) REFERENCES piece (piece_id) ON UPDATE CASCADE" +
                 ");";
 
-        try {
+        try (final var connection = ConnectionGenerator.getConnection(databaseName)) {
             final var statements = query.split(";");
             final var statement = connection.createStatement();
 

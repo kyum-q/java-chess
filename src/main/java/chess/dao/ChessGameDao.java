@@ -6,10 +6,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class ChessGameDao {
-    private final Connection connection;
+    private final String databaseName;
 
-    public ChessGameDao(Connection connection) {
-        this.connection = connection;
+    public ChessGameDao(String databaseName) {
+        this.databaseName = databaseName;
     }
 
     public void addChessGame(String id) {
@@ -18,7 +18,8 @@ public class ChessGameDao {
         }
 
         final var query = "INSERT INTO chess_game(game_id) VALUES(?)";
-        try (final var preparedStatement = connection.prepareStatement(query)) {
+        try (final var connection = ConnectionGenerator.getConnection(databaseName)) {
+            final var preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -28,7 +29,8 @@ public class ChessGameDao {
 
     public boolean checkById(String id) {
         final var query = "SELECT game_id FROM chess_game WHERE game_id = ?";
-        try (final var preparedStatement = connection.prepareStatement(query)) {
+        try (final var connection = ConnectionGenerator.getConnection(databaseName)) {
+            final var preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, id);
             final var resultSet = preparedStatement.executeQuery();
             return resultSet.next();
@@ -39,7 +41,8 @@ public class ChessGameDao {
 
     public String findIdByLastGame() {
         final var query = "SELECT game_id FROM chess_game ORDER BY game_id DESC LIMIT 1";
-        try (final var preparedStatement = connection.prepareStatement(query)) {
+        try (final var connection = ConnectionGenerator.getConnection(databaseName)) {
+            final var preparedStatement = connection.prepareStatement(query);
             final var resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return resultSet.getString("game_id");
@@ -52,7 +55,8 @@ public class ChessGameDao {
 
     public Team findTeamById(String id) {
         final var query = "SELECT turn FROM chess_game WHERE game_id = ?";
-        try (final var preparedStatement = connection.prepareStatement(query)) {
+        try (final var connection = ConnectionGenerator.getConnection(databaseName)) {
+            final var preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, id);
             final var resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -66,7 +70,8 @@ public class ChessGameDao {
 
     public void updateTurn(String id, Team team) {
         final var query = "UPDATE chess_game SET turn = ? WHERE game_id = ?";
-        try (final var preparedStatement = connection.prepareStatement(query)) {
+        try (final var connection = ConnectionGenerator.getConnection(databaseName)) {
+            final var preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, team.name());
             preparedStatement.setString(2, id);
 

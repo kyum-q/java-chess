@@ -10,15 +10,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BoardDao {
-    private final Connection connection;
+    private final String databaseName;
 
-    public BoardDao(Connection connection) {
-        this.connection = connection;
+    public BoardDao(String databaseName) {
+        this.databaseName = databaseName;
     }
 
     public void addPosition(Position position, String gameId, String pieceId) {
         final var query = "INSERT INTO board(position, game_id, piece_id) VALUES(?, ?, ?)";
-        try (final var preparedStatement = connection.prepareStatement(query)) {
+        try (final var connection = ConnectionGenerator.getConnection(databaseName)) {
+            final var preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, PositionConverter.convertString(position));
             preparedStatement.setString(2, gameId);
             preparedStatement.setString(3, pieceId);
@@ -33,7 +34,8 @@ public class BoardDao {
         final var target = PositionConverter.convertString(positions.target());
         final var query = "DELETE FROM board WHERE game_id = '%s' AND (position = '%s' OR position = '%s')"
                 .formatted(gameId, source, target);
-        try (final var preparedStatement = connection.prepareStatement(query)) {
+        try (final var connection = ConnectionGenerator.getConnection(databaseName)) {
+            final var preparedStatement = connection.prepareStatement(query);
             preparedStatement.executeUpdate();
         } catch (final SQLException e) {
             throw new RuntimeException(e);
@@ -44,7 +46,8 @@ public class BoardDao {
         Map<Position, String> board = new HashMap<>();
 
         final var query = "SELECT * FROM board WHERE game_id = ?";
-        try (final var preparedStatement = connection.prepareStatement(query)) {
+        try (final var connection = ConnectionGenerator.getConnection(databaseName)) {
+            final var preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, gameId);
             final var resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

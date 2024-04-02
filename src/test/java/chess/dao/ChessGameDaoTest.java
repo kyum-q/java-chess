@@ -13,23 +13,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 class ChessGameDaoTest {
-    private Connection connection;
+    public static final String DATABASE_NAME = "chess_test";
     private ChessGameDao chessGameDao;
 
     @BeforeEach
     void connection() {
-        connection = new ConnectionGenerator().getConnection("chess_test");
-        new SettingDao(connection).settingTable();
-        new PieceDao(connection).settingPiece();
+        SettingDao.settingTable(DATABASE_NAME);
+        new PieceDao(DATABASE_NAME).settingPiece();
 
         deleteTable();
-        chessGameDao = new ChessGameDao(connection);
+        chessGameDao = new ChessGameDao(DATABASE_NAME);
     }
 
     @AfterEach
     void deleteTable() {
         final var query = "DELETE FROM chess_game";
-        try (final var preparedStatement = connection.prepareStatement(query)) {
+        try (final var connection = ConnectionGenerator.getConnection(DATABASE_NAME)) {
+            final var preparedStatement = connection.prepareStatement(query);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -8,10 +8,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class PieceDao {
-    private final Connection connection;
+    private final String databaseName;
 
-    public PieceDao(Connection connection) {
-        this.connection = connection;
+    public PieceDao(String databaseName) {
+        this.databaseName = databaseName;
     }
 
     public void settingPiece() {
@@ -40,7 +40,7 @@ public class PieceDao {
                 "INSERT INTO `piece` VALUES ('510', 'KING', 'WHITE', '0');" +
                 "INSERT INTO `piece` VALUES ('511', 'KING', 'WHITE', '1');";
 
-        try {
+        try (final var connection = ConnectionGenerator.getConnection(databaseName)) {
             final var statements = query.split(";");
             final var statement = connection.createStatement();
 
@@ -58,7 +58,8 @@ public class PieceDao {
 
     private boolean isContainPieceInDB(String id) {
         final var query = "SELECT * FROM piece WHERE piece_id = ?";
-        try (final var preparedStatement = connection.prepareStatement(query)) {
+        try (final var connection = ConnectionGenerator.getConnection(databaseName)) {
+            final var preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, id);
             final var resultSet = preparedStatement.executeQuery();
             return resultSet.next();
@@ -69,7 +70,8 @@ public class PieceDao {
 
     public Piece findById(String id) {
         final var query = "SELECT * FROM piece WHERE piece_id = ?";
-        try (final var preparedStatement = connection.prepareStatement(query)) {
+        try (final var connection = ConnectionGenerator.getConnection(databaseName)) {
+            final var preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, id);
             final var resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {

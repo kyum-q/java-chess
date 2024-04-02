@@ -1,6 +1,8 @@
 package chess.controller;
 
-import chess.dao.*;
+import chess.dao.BoardDao;
+import chess.dao.ChessGameDao;
+import chess.dao.PieceDao;
 import chess.dao.converter.PieceConverter;
 import chess.domain.Board;
 import chess.domain.BoardFactory;
@@ -14,22 +16,14 @@ import chess.view.Command;
 import chess.view.InputView;
 import chess.view.OutputView;
 
-import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ChessController {
-    private Connection connection;
 
-    public ChessController() {
-        connection = ConnectionGenerator.getConnection("chess");
-        new SettingDao(connection).settingTable();
-        new PieceDao(connection).settingPiece();
-        ConnectionGenerator.closeConnection(connection);
-    }
+    private static final String DATABASE_NAME = "chess";
 
     public void play() {
-        connection = ConnectionGenerator.getConnection("chess");
         String gameId = InputView.inputGameId();
         ChessGame chessGame = makeGame(gameId);
         OutputView.printChessBoard(new BoardDto(chessGame.board()));
@@ -38,11 +32,10 @@ public class ChessController {
             gamePlayByCommand(chessGame, command, gameId);
         }
         printChessScore(chessGame);
-        ConnectionGenerator.closeConnection(connection);
     }
 
     private ChessGame makeGame(String gameId) {
-        ChessGameDao chessGameDao = new ChessGameDao(connection);
+        ChessGameDao chessGameDao = new ChessGameDao(DATABASE_NAME);
         boolean isPlayed = chessGameDao.checkById(gameId);
         if (!isPlayed) {
             chessGameDao.addChessGame(gameId);
@@ -51,7 +44,7 @@ public class ChessController {
     }
 
     private Board makeBoard(String gameId, boolean isPlayed) {
-        BoardDao boardDao = new BoardDao(connection);
+        BoardDao boardDao = new BoardDao(DATABASE_NAME);
         if (!isPlayed) {
             Map<Position, Piece> pieces = BoardFactory.generateStartBoard();
             pieces.forEach((key, value) -> boardDao.addPosition(key, gameId, PieceConverter.converterId(value)));
@@ -61,7 +54,7 @@ public class ChessController {
 
     private Map<Position, Piece> makePieces(Map<Position, String> board) {
         Map<Position, Piece> pieces = new HashMap<>();
-        PieceDao pieceDao = new PieceDao(connection);
+        PieceDao pieceDao = new PieceDao(DATABASE_NAME);
         for (Map.Entry<Position, String> pieceId : board.entrySet()) {
             pieces.put(pieceId.getKey(), pieceDao.findById(pieceId.getValue()));
         }
@@ -92,12 +85,12 @@ public class ChessController {
     }
 
     private void turnUpdateDB(String gameId, Team team) {
-        ChessGameDao chessGameDao = new ChessGameDao(connection);
+        ChessGameDao chessGameDao = new ChessGameDao(DATABASE_NAME);
         chessGameDao.updateTurn(gameId, team.opponent());
     }
 
     private void moveChessUpdateDB(String gameId, Positions positions, Piece piece) {
-        BoardDao boardDao = new BoardDao(connection);
+        BoardDao boardDao = new BoardDao(DATABASE_NAME);
         boardDao.deletePosition(gameId, positions);
         boardDao.addPosition(positions.target(), gameId, PieceConverter.converterId(piece));
     }

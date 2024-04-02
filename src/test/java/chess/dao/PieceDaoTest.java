@@ -13,13 +13,12 @@ import java.sql.Connection;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class PieceDaoTest {
-
+    public static final String DATABASE_NAME = "chess_test";
     private PieceDao pieceDao;
 
     @BeforeEach
     void connection() {
-        Connection connection = new ConnectionGenerator().getConnection("chess_test");
-        pieceDao = new PieceDao(connection);
+        pieceDao = new PieceDao(DATABASE_NAME);
         pieceDao.settingPiece();
     }
 
