@@ -86,7 +86,7 @@ public class ChessController {
         OutputView.printChessBoard(new BoardDto(chessGame.board()));
         OutputView.printCheck(chessGame.findCheck());
         turnUpdateDB(gameId, chessGame.currentTeam());
-        Piece movedPiece = chessGame.board().pieces().get(positions.target());
+        Piece movedPiece = chessGame.findPiece(positions.target());
         moveChessUpdateDB(gameId, positions, movedPiece);
     }
 

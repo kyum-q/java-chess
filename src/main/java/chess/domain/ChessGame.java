@@ -1,6 +1,8 @@
 package chess.domain;
 
+import chess.domain.piece.Piece;
 import chess.domain.piece.character.Team;
+import chess.domain.position.Position;
 import chess.domain.position.Positions;
 
 import java.util.Arrays;
@@ -56,6 +58,10 @@ public class ChessGame {
 
     private double findScore(Team team) {
         return board.calculateScore(team);
+    }
+
+    public Piece findPiece(Position position) {
+        return board.pieces().get(position);
     }
 
     public Board board() {
