@@ -2,7 +2,7 @@ package chess.controller;
 
 import chess.dao.BoardDao;
 import chess.dao.ChessGameDao;
-import chess.dao.PieceDao;
+import chess.dao.SettingDao;
 import chess.dao.converter.PieceConverter;
 import chess.domain.Board;
 import chess.domain.BoardFactory;
@@ -20,8 +20,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ChessController {
-
     private static final String DATABASE_NAME = "chess";
+
+    public ChessController() {
+        SettingDao.settingTable(DATABASE_NAME);
+    }
 
     public void play() {
         String gameId = InputView.inputGameId();
@@ -54,9 +57,8 @@ public class ChessController {
 
     private Map<Position, Piece> makePieces(Map<Position, String> board) {
         Map<Position, Piece> pieces = new HashMap<>();
-        PieceDao pieceDao = new PieceDao(DATABASE_NAME);
         for (Map.Entry<Position, String> pieceId : board.entrySet()) {
-            pieces.put(pieceId.getKey(), pieceDao.findById(pieceId.getValue()));
+            pieces.put(pieceId.getKey(), PieceConverter.converterPiece(pieceId.getValue()));
         }
         return pieces;
     }

@@ -11,15 +11,6 @@ public class SettingDao {
                 "  `turn`    enum('WHITE', 'BLACK') DEFAULT 'WHITE'," +
                 "  PRIMARY KEY (game_id)" +
                 ");" +
-                "CREATE TABLE IF NOT EXISTS piece" +
-                "(" +
-                "  `piece_id` char(3)," +
-                "  `kind`     varchar(50) not null," +
-                "  `team`     enum('WHITE', 'BLACK') not null," +
-                "  `is_moved` boolean     not null," +
-                "  PRIMARY KEY (piece_id)," +
-                "  UNIQUE (kind, team, is_moved)" +
-                ");" +
                 "CREATE TABLE IF NOT EXISTS board" +
                 "(" +
                 "  `board_id` bigint auto_increment, " +
@@ -28,8 +19,7 @@ public class SettingDao {
                 "  `piece_id` char(3) not null," +
                 "  PRIMARY KEY (board_id)," +
                 "  UNIQUE (position, game_id)," +
-                "  FOREIGN KEY (game_id) REFERENCES chess_game (game_id) ON UPDATE CASCADE," +
-                "  FOREIGN KEY (piece_id) REFERENCES piece (piece_id) ON UPDATE CASCADE" +
+                "  FOREIGN KEY (game_id) REFERENCES chess_game (game_id) ON UPDATE CASCADE" +
                 ");";
 
         try (final var connection = ConnectionGenerator.getConnection(databaseName)) {
@@ -37,7 +27,6 @@ public class SettingDao {
             final var statement = connection.createStatement();
 
             for (final var singleQuery : statements) {
-                String[] parts = singleQuery.split("'");
                 statement.executeUpdate(singleQuery);
             }
             statement.close();

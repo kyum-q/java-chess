@@ -19,7 +19,6 @@ class ChessGameDaoTest {
     @BeforeEach
     void connection() {
         SettingDao.settingTable(DATABASE_NAME);
-        new PieceDao(DATABASE_NAME).settingPiece();
 
         deleteTable();
         chessGameDao = new ChessGameDao(DATABASE_NAME);

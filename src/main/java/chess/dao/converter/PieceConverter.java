@@ -18,8 +18,12 @@ public class PieceConverter {
         return "0";
     }
 
-    public static Piece converterPiece(String kind, Team team, boolean isMoved) {
-        return switch (Kind.valueOf(kind)) {
+    public static Piece converterPiece(String id) {
+        int kindIndex = id.charAt(0) - '0';
+        Team team = Team.values()[id.charAt(1) - '0'];
+        boolean isMoved = id.charAt(2) - '0' == 1;
+
+        return switch (Kind.values()[kindIndex]) {
             case PAWN -> new Pawn(team, isMoved);
             case KNIGHT -> new Knight(team, isMoved);
             case BISHOP -> new Bishop(team, isMoved);
