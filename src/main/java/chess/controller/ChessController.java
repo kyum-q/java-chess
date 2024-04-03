@@ -54,7 +54,7 @@ public class ChessController {
         BoardDao boardDao = new BoardDao(DATABASE_NAME);
         if (!isPlayed) {
             Map<Position, Piece> pieces = BoardFactory.generateStartBoard();
-            pieces.forEach((key, value) -> boardDao.addPosition(key, gameId, PieceConverter.converterId(value)));
+            pieces.forEach((key, value) -> boardDao.addPosition(gameId, key, PieceConverter.converterId(value)));
         }
         return new Board(makePieces(boardDao.findPiece(gameId)));
     }
@@ -97,7 +97,9 @@ public class ChessController {
 
     private void moveChessSave(String gameId, Positions positions, Piece piece) {
         BoardDao boardDao = new BoardDao(DATABASE_NAME);
-        boardDao.deletePosition(gameId, positions);
-        boardDao.addPosition(positions.target(), gameId, PieceConverter.converterId(piece));
+        boardDao.deleteAndAddPositions(
+                gameId,
+                positions,
+                PieceConverter.converterId(piece));
     }
 }

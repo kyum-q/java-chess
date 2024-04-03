@@ -16,7 +16,12 @@ public class BoardDao {
         this.databaseName = databaseName;
     }
 
-    public void addPosition(Position position, String gameId, String pieceId) {
+    public void deleteAndAddPositions(String gameId, Positions positions, String pieceId) {
+        deletePosition(gameId, positions);
+        addPosition(gameId, positions.target(), pieceId);
+    }
+
+    public void addPosition(String gameId, Position position, String pieceId) {
         final var query = "INSERT INTO board(position, game_id, piece_id) VALUES(?, ?, ?)";
         try (final var connection = ConnectionGenerator.getConnection(databaseName)) {
             final var preparedStatement = connection.prepareStatement(query);
@@ -29,7 +34,7 @@ public class BoardDao {
         }
     }
 
-    public void deletePosition(String gameId, Positions positions) {
+    private void deletePosition(String gameId, Positions positions) {
         final var source = PositionConverter.convertString(positions.source());
         final var target = PositionConverter.convertString(positions.target());
         final var query = "DELETE FROM board WHERE game_id = '%s' AND (position = '%s' OR position = '%s')"
