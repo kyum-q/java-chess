@@ -1,0 +1,5 @@
+Server:
+  address: "localhost:3306"
+  option: "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+  user_name: "user"
+  password: "passwd"
