@@ -85,17 +85,17 @@ public class ChessController {
         chessGame.movePiece(positions);
         OutputView.printChessBoard(new BoardDto(chessGame.board()));
         OutputView.printCheck(chessGame.findCheck());
-        turnUpdateDB(gameId, chessGame.currentTeam());
+        gameTurnSave(gameId, chessGame.currentTeam());
         Piece movedPiece = chessGame.findPiece(positions.target());
-        moveChessUpdateDB(gameId, positions, movedPiece);
+        moveChessSave(gameId, positions, movedPiece);
     }
 
-    private void turnUpdateDB(String gameId, Team team) {
+    private void gameTurnSave(String gameId, Team team) {
         ChessGameDao chessGameDao = new ChessGameDao(DATABASE_NAME);
         chessGameDao.updateTurn(gameId, team.opponent());
     }
 
-    private void moveChessUpdateDB(String gameId, Positions positions, Piece piece) {
+    private void moveChessSave(String gameId, Positions positions, Piece piece) {
         BoardDao boardDao = new BoardDao(DATABASE_NAME);
         boardDao.deletePosition(gameId, positions);
         boardDao.addPosition(positions.target(), gameId, PieceConverter.converterId(piece));
